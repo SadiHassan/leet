@@ -16,7 +16,10 @@ while(!st.empty()){
     st.pop();
 }
 
+//----------------- VECTOR  -----------------//
 
+// Create a vector of SIZE = N ; Initialized with = 0
+vector<int> _vec(N, 0);
 
 return 0;
 }
