@@ -1,3 +1,4 @@
+//SORTING Solution
 class Solution {
 public:
     struct num_type{
@@ -31,5 +32,28 @@ public:
         answer.push_back(arr[L].index);
         answer.push_back(arr[R].index);
         return answer;
+    }
+};
+
+//MAP based Solution
+class Solution {
+public:
+    vector<int> twoSum(vector<int>& nums, int target) {
+        
+        map<int, int> m;
+        vector<int> ans;
+        
+        for(int i = 0; i < nums.size(); i++){
+           
+            if(m.find(target - nums[i]) != m.end()){
+                    ans.push_back(i);
+                    ans.push_back(m[target - nums[i]]);    
+            }
+            
+            //IMPORTANT!!!! putting into map should happen here, otherwise, logic will not work  
+            m[nums[i]] = i;
+        }
+        
+        return ans;
     }
 };
