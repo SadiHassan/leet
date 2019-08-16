@@ -2,7 +2,7 @@ using namespace std;
 
 #include <iostream>
 #include <vector>
-
+  
 class MaxSumSubArrayOfSizeK {
  public:
   static int findMaxSumSubArray(int k, const vector<int>& arr) {
