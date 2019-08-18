@@ -50,3 +50,45 @@ public:
  * obj->addNum(num);
  * double param_2 = obj->findMedian();
  */
+
+//Approach - 3: Two Heaps (Priority Queue)
+class MedianFinder {
+public:
+    vector<double> store;
+    priority_queue<int> lower; //MAX heap
+    priority_queue<int, vector<int>, greater<int>> higher; //MIN heap
+    
+    MedianFinder() {
+        
+    }
+    
+    //My Version: I understood WHY it was wrong. I will reexplain it to myself later
+    /*
+    void addNum(int num) {
+        higher.push(num);
+        if(lower.size() < higher.size()){
+            lower.push(higher.top());
+            higher.pop();
+        }
+            
+    }
+    */
+    
+    //Tutorial Version
+    void addNum(int num) {
+        lower.push(num);
+        higher.push(lower.top());
+        lower.pop();
+        if(lower.size() < higher.size()){
+            lower.push(higher.top());
+            higher.pop();
+        }
+            
+    }
+    double findMedian() {      
+        if(lower.size() > higher.size()){
+           return (double) lower.top();
+        }
+        return (double) (lower.top() + higher.top()) / 2;
+    }
+};
