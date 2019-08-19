@@ -5,7 +5,7 @@ using namespace std;
 "eqgkcwGFvjjmxutystqdfhuMblWbylgjxsxgnoh"
 16
 Output
-38
+27
 Expected
 27
 */
