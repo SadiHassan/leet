@@ -35,7 +35,7 @@ int main(){
 
 Solution* p;
 vector<int> input;
-input.push_back(1);input.push_back(2);input.push_back(3);input.push_back(4);input.push_back(5);
+input.push_back(1);input.push_back(2);input.push_back(2);input.push_back(2);input.push_back(5);
 
 vector< vector<int> > ans = p->subsets(input);
 
