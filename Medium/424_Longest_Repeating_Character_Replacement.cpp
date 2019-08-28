@@ -17,7 +17,7 @@ Expected
 22
 
 */
-
+ 
 class Solution {
 public:
     int find_min_index_char_val(int index[]){
