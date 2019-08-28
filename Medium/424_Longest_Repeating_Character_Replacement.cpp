@@ -1,4 +1,4 @@
-//Work In Progress
+//AC
 
 /*
 My testcases:
@@ -18,6 +18,8 @@ Expected
 
 */
  
+ //My crappy Buggy Code
+
 class Solution {
 public:
     int find_min_index_char_val(int index[]){
@@ -79,5 +81,34 @@ public:
             ans = max(ans, total_so_far);
         }//end-for
     return ans;
+    }
+};
+
+//Accepted solution. I thought the tricky part right way, but I just overcomplicated :(
+class Solution {
+public:
+    int characterReplacement(string s, int k) {
+        
+        int max_len = -1;
+        int ans = 0;
+        int i = 0;
+        int max_count = 0;
+        int count[26] = {0};
+        
+        for(int j = 0; j < s.size(); j++){
+                       
+            count[ s[j]-'A' ] += 1;
+            max_count = max(count[s[j]-'A'], max_count);
+            
+            int len = j - i + 1; 
+            while(len - max_count > k){
+                count[s[i]-'A'] -= 1;
+                i++;
+                len = j - i + 1;
+            }
+            ans = max(ans, len);
+        }//end-for
+        
+        return ans;
     }
 };
