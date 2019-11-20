@@ -31,18 +31,15 @@ public:
 
     /** Inserts a word into the trie. */
     void insert(string word) {
-
         if(word.size() == 0)
             return;
         if(m.find(word[0]) == m.end()){
             Node* p = new Node(word[0]);
             m[word[0]] = p;
-            Node* temp;
-            temp = p;
             for(int i = 1; i < word.size(); i++){
                 Node* q = new Node(word[i]);
                 p->children.push_back(q);
-                //cout << word[i-1] << " " << p->children.size() << "  " << p->children[0]->value <<endl;
+                cout << word[i-1] << " " << p->children.size() << "  " << p->children[0]->value <<endl;
                 p = q;
             }
             p->setEnd(true);
@@ -54,7 +51,7 @@ public:
                 bool new_child = true;
                 for(int j = 0; j < p->children.size(); j++){
                     if(word[i] == p->children[j]->value){
-
+                        //cout << word[i-1] << " " << p->children.size() << "  " << p->children[0]->value <<endl;
                         p = p->children[j];
                         new_child = false;
                         break;
@@ -64,10 +61,12 @@ public:
                 if(new_child){
                     Node* q = new Node(word[i]);
                     p->children.push_back(q);
+                    //cout << word[i-1] << " " << p->children.size() << "  " << p->children[0]->value <<endl;
                     p = q;
-                    break;
+                    //break;
                 }
             }
+            //cout << p->value << endl;
             p->setEnd(true);
         }//END else
     }
@@ -82,8 +81,9 @@ public:
         for(i = 1; i < word.size(); i++){
                 for(int j = 0; j < p->children.size(); j++){
                     if(word[i] == p->children[j]->value){
-                        p = p->children[j];
                         total_char_matched++;
+                        //if(i < word.size() - 1)
+                        p = p->children[j];
                         break;
                     }
                 }
@@ -126,12 +126,20 @@ public:
 int main(){
 
     Trie* trie = new Trie();
-    trie->insert("hello");
-    cout << trie->search("hello") << endl;   // returns true
-    cout << trie->startsWith("hell") << endl;     // returns false
-    cout << trie->startsWith("app") << endl; // returns true
-    trie->insert("app");
-    cout << trie->search("hellowwww") << endl;     // returns true
+    //trie->insert("app");
+
+
+    trie->insert("apple");
+    trie->insert("add");
+    trie->insert("as");
+    cout << trie->search("ad") << endl;   // returns true
+    cout << trie->search("add") << endl;
+    cout << trie->search("as") << endl;
+    cout << trie->search("ass") << endl;
+    cout << trie->startsWith("ade") << endl;     // returns false
+    //cout << trie->startsWith("app") << endl; // returns true
+    //trie->insert("app");
+    //cout << trie->search("hellowwww") << endl;     // returns true
 
     /*
     obj->insert("apple");
@@ -181,7 +189,16 @@ Output:
 Expected:
 [null,null,null,null,null,null,null,false,true,false,false,false,false,false,true,true,false,true,true,false,false,false,true,true,true]
 
+app
+apple
+beer
+add
+jam
+rental
 
+apps
+app
+ad
 
 */
 
