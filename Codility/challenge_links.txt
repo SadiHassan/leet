@@ -1,0 +1,5 @@
+1. Yttrium 2019
+2. Strontium 2019
+3. Grand Challenge
+
+4. https://leetcode.com/discuss/interview-question/330356/Amazon-or-Online-Assessment-2019-or-Longest-string-without-3-consecutive-characters
