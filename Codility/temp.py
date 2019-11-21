@@ -10,11 +10,18 @@ def ls3(A, B, C):
         #print(-v, k)
     preV, preK = 0, ''
     while pq:
+        print(pq)
         v, k = heapq.heappop(pq)
+        print(v,k)
         if preV:
+            print("preV", preV)
             heapq.heappush(pq, (preV, preK))
             preV, preK = 0, ''
         if res[-2:] == k * 2:
+            print("res : ", res)
+            print("res[-2:] : ",res[-2:])
+            print("k: ", k)
+            print("k * 2", k * 2)
             preV, preK = v, k
         else:
             res += k
@@ -22,6 +29,232 @@ def ls3(A, B, C):
                 heapq.heappush(pq, (v + 1, k))
     return res
 
+def generate_string_core(A, B, C, AA, BB, CC):
+    ans = "";
+    while A > 0:
+        if A > 0:
+            ans += AA
+            A -= 1
+        if A > 0:
+            ans += AA;
+            A -= 1
+        if B == 0 and C == 0:
+            return ans
+        if A == 0:
+            break
+        if B > 0:
+            ans += BB
+            B -= 1
+        if C > 0:
+            ans += CC
+            C -= 1
+    
+
+    if B == 0:
+        if C > 0: 
+            ans = CC + ans
+        C -= 1
+        if C > 0: 
+            ans = CC + ans
+        C -= 1
+        
+        #NEW
+        if len(ans) >= 2:
+            ind = len(ans) - 1
+            if ans[ind] != CC and ans[ind - 1] != CC and C > 0:
+                ans += CC
+                C -= 1
+            ind = len(ans) - 1
+            if ans[ind] != CC and ans[ind - 1] != CC and C > 0:
+                ans += CC
+                C -= 1    
+        return ans;
+    
+
+    if C == 0:
+        if B > 0: 
+            ans = BB + ans
+        B -= 1
+        if B > 0: 
+            ans = BB + ans
+        B -= 1
+        
+        #NEW
+        if len(ans) >= 2:
+            ind = len(ans) - 1
+            if ans[ind] != BB and ans[ind - 1] != BB and B > 0:
+                ans += BB
+                B -= 1
+            ind = len(ans) - 1
+            if ans[ind] != BB and ans[ind - 1] != BB and B > 0:
+                ans += BB
+                B -= 1
+        
+        return ans;
+
+    while B > 0 and C > 0:
+        if B > C:
+            if B > 0:
+                ans += BB
+                B -= 1
+            if B > 0:
+                ans += BB
+                B -= 1
+            if C > 0:
+                ans += CC
+                C -= 1
+        
+        elif C > B:
+            if C > 0:
+                ans += CC
+                C -= 1
+            if C > 0:
+                ans += CC 
+                C -= 1
+            if B > 0:
+                ans += BB
+                B -= 1
+        
+        else:
+            if B > 0:
+                ans += BB
+                B -= 1
+            if C > 0:
+                ans += CC
+                C -= 1
+        
+    
+
+    if B == 0:
+        if C > 0:
+            ans = CC + ans
+            C -= 1
+        if C > 0:
+            ans = CC + ans
+            C -= 1
+        return ans;
+    
+    if C == 0:
+        if B > 0:
+            ans = BB + ans
+            B -= 1
+        if B > 0:
+            ans = BB + ans
+            B -= 1
+        return ans;
+    
+    return ans;
+
+
+def generate_string(A, B, C):
+    if A <= 0 and B <= 0 and C <= 0:
+        return ""
+
+    if A >= B and A >= C and B >= C:
+        return generate_string_core2(A, B, C, 'a', 'b', 'c')
+    
+    elif A >= B and A >= C and C >= B: 
+        return generate_string_core2(A, C, B, 'a', 'c', 'b')
+
+    elif B >= A and B >= C and A >= C:
+        return generate_string_core2(B, A, C, 'b', 'a', 'c')
+    
+    elif B >= A and B >= C and C >= A:
+        return generate_string_core2(B, C, A, 'b', 'c', 'a')
+
+    elif C >= A and C >= B and A >= B:
+        return generate_string_core2(C, A, B, 'c', 'a', 'b');
+    
+    elif C >= A and C >= B and B >= A:
+        return generate_string_core2(C, B, A, 'c', 'b', 'a');
+
+
+def generate_string_core2(A, B, C, AA, BB, CC):
+    ans = ""
+    while C > 0:
+        ans += AA
+        ans += BB
+        ans += CC
+        A -= 1
+        B -= 1
+        C -= 1
+    while A > 0 and B > 0:
+        if A > B:
+            if A > 0:
+                ans += AA
+                A -= 1
+            if A > 0:
+                ans += AA
+                A -= 1
+            if B > 0:
+                ans += BB
+                B -= 1
+        
+        elif B > A:
+            if B > 0:
+                ans += BB
+                B -= 1
+            if B > 0:
+                ans += BB 
+                B -= 1
+            if A > 0:
+                ans += AA
+                A -= 1
+        
+        else:
+            if A > 0:
+                ans += AA
+                A -= 1
+            if B > 0:
+                ans += BB
+                B -= 1
+    
+    if A == 0:
+        #Append B to the last
+        ind = len(ans) - 1
+        if ans[ind] == AA:
+            if B > 0:
+                ans += BB
+                B -= 1
+            if B > 0:
+                ans += BB
+                B -= 1
+        else:
+            if B > 0:
+                ans += BB
+                B -= 1
+        #Append B to the first    
+        if B > 0:
+            ans = BB + ans
+            B -= 1
+        if B > 0:
+            ans = BB + ans
+            B -= 1
+            
+
+    if B == 0:
+        #Append A to the last
+        ind = len(ans) - 1
+        if ans[ind] == BB:
+            if A > 0:
+                ans += AA
+                A -= 1
+            if A > 0:
+                ans += AA
+                A -= 1
+        else:
+            if A > 0:
+                ans += AA
+                A -= 1
+        #Append B to the first    
+        if A > 0:
+            ans = AA + ans
+            A -= 1
+        if A > 0:
+            ans = AA + ans
+            A -= 1    
+    
+    return ans    
 
 def f(A, B, C):
     if A == 0 and B == 0 and C == 0:
@@ -180,36 +413,21 @@ def f(A, B, C):
 
 
     
-A, B, C = 1, 1, 2
-#their = ls3(A, B, C)
+A, B, C = 10, 3, 2
+their = ls3(A, B, C)
 #mine = f(A, B, C)
 #print(mine)
-#print(their, mine, their==mine)
+print(their)
 
-
-MAX = 6
 MIN = 1
-for A in range(MIN, MAX):
-    for B in range(MIN, MAX):
-        for C in range(MIN, MAX):
+MAX = 100
+'''
+f = open('C:\\Users\sadi\GitHub\leet\Codility\expected.csv', 'w')
+for A in range(MIN, MAX + 1):
+    for B in range(MIN, MAX + 1):
+        for C in range(MIN, MAX + 1):
             their = ls3(A, B, C)
-            mine = f(A, B, C)
             their_len = len(their)
-            my_len = len(mine)
-            tot_len = A + B + C
-            #if my_len != tot_len and their_len == tot_len:# and their_len - my_len > 1:
-                #print(my_len, their_len)
-                #print(A, B, C)
-                #print("mine: ", mine)
-                #rint("their: ", their)
-                #print("------------------")
-                
-            
-            
-            #print(A, B, C, A+B+C, "their_len: ", len(their), len(their)==(A+B+C), "mine_len: ", len(mine), len(mine)==(A+B+C))
-            #print(their, mine, their==mine)
-            #print("========================")    
-
-
-#A, B, C = 0, 0, 0
-#print(ls3(A, B, C))
+            f.write(str(A) + "," + str(B) + "," + str(C) + "," + str(their_len) + "," + their + "\n")
+f.close()
+'''
