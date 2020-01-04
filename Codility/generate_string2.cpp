@@ -19,6 +19,11 @@ string generate_string(int A, int B, int C){
         return s;
     }
 
+    if( (A == B) && (B == C)){
+    	for(int i = 1; i <= A; i++) s += "abc";
+    	return s;
+    }
+
     priority_queue< pair<int,char> > pq;
     pair<int,char> first, second;
 
@@ -64,12 +69,12 @@ bool is_valid(string str){
 int main() {
     int A, B , C;
 
-    A = 5;
-    B = 3;
-    C = 3;
+    A = 0;
+    B = 0;
+    C = 5;
 
-    int MIN = 1;
-    int MAX = 100;
+    int MIN = 900;
+    int MAX = 1000;
 
     string ans = generate_string(A, B, C);
     cout << ans << " " << ans.size() << " Valid = " << is_valid(ans)<< endl;
