@@ -92,3 +92,38 @@ public:
         return (double) (lower.top() + higher.top()) / 2;
     }
 };
+
+
+//Approach - 4: My version of Two Heaps (Accepted)
+
+class MedianFinder {
+public:
+    
+    priority_queue<int> lower; //MAX heap (contains the LEFT part of data stream)
+    priority_queue<int, vector<int>, greater<int>> higher; //MIN heap (contains the RIGHT part of data stream)
+    
+    MedianFinder() {
+        
+    }
+    
+    void addNum(int num) {
+        higher.push(num);
+        if(lower.size() < higher.size()){
+            lower.push(higher.top());
+            higher.pop();
+        }
+        else if(lower.top() > higher.top()){
+            int lower_top = lower.top();
+            int higher_top = higher.top();
+            lower.pop();
+            higher.pop();
+            lower.push(higher_top);
+            higher.push(lower_top);
+        }
+    }
+    
+    double findMedian() {
+        if(lower.size() > higher.size()) return (double) lower.top();
+        return (double) (lower.top() + higher.top()) / 2;
+    }
+};
